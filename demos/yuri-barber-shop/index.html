@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barbería</title>
+  <meta name="description" content="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="config.js"></script>
+</head>
+<body>
+  <div class="demo-bar" id="demoBar"></div>
+
+  <header class="nav">
+    <a href="#inicio" class="brand" id="navBrand"></a>
+    <nav class="nav-links">
+      <a href="#servicios" data-i18n="navServicios"></a>
+      <a href="#resenas" data-i18n="navResenas"></a>
+      <a href="#visitanos" data-i18n="navVisitanos"></a>
+    </nav>
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma">EN</button>
+  </header>
+
+  <main>
+    <!-- PORTADA -->
+    <section class="hero" id="inicio">
+      <div class="pole" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="status" id="status"></p>
+        <h1 id="heroTitle"></h1>
+        <p class="tagline" id="heroTag"></p>
+        <a class="stars" id="heroStars" target="_blank" rel="noopener"></a>
+        <div class="hero-cta">
+          <a href="#reservar" class="btn btn-primary" data-i18n="ctaReservar"></a>
+          <a class="btn btn-ghost" id="heroCall"></a>
+        </div>
+        <ul class="sellos" id="sellos"></ul>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="intro">
+      <p id="introText"></p>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <h2 data-i18n="tServicios"></h2>
+      <p class="note" id="priceNote"></p>
+      <ul class="services" id="servicesList"></ul>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" id="galeria">
+      <h2 data-i18n="tGaleria"></h2>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- RESERVAR -->
+    <section class="section booking" id="reservar">
+      <h2 data-i18n="tReservar"></h2>
+      <p class="sub" data-i18n="subReservar"></p>
+      <form id="bookForm" novalidate>
+        <label><span data-i18n="fServicio"></span>
+          <select id="fServicio" required></select>
+        </label>
+        <label><span data-i18n="fBarbero"></span>
+          <select id="fBarbero"></select>
+        </label>
+        <div class="row">
+          <label><span data-i18n="fDia"></span>
+            <input type="date" id="fDia" required />
+          </label>
+          <label><span data-i18n="fHora"></span>
+            <select id="fHora" required></select>
+          </label>
+        </div>
+        <label><span data-i18n="fNombre"></span>
+          <input type="text" id="fNombre" autocomplete="name" required />
+        </label>
+        <p class="form-error" id="formError" role="alert"></p>
+        <button type="submit" class="btn btn-primary btn-wa">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+          <span data-i18n="btnEnviar"></span>
+        </button>
+      </form>
+    </section>
+
+    <!-- RESEÑAS -->
+    <section class="section" id="resenas">
+      <h2 data-i18n="tResenas"></h2>
+      <div class="reviews" id="reviews"></div>
+      <a class="link-more" id="moreReviews" target="_blank" rel="noopener"></a>
+    </section>
+
+    <!-- VISÍTANOS -->
+    <section class="section" id="visitanos">
+      <h2 data-i18n="tVisitanos"></h2>
+      <div class="visit">
+        <div>
+          <p class="addr" id="addr"></p>
+          <p><a id="phone"></a></p>
+          <p id="igLine"></p>
+          <table class="hours" id="hours"></table>
+          <a class="btn btn-ghost" id="directions" target="_blank" rel="noopener" data-i18n="btnComoLlegar"></a>
+        </div>
+        <iframe id="map" title="Mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p id="footName"></p>
+    <p class="credit">
+      <span data-i18n="hechoPor"></span>
+      <a href="https://yassp8312.github.io" target="_blank" rel="noopener">Yassper Design</a>
+      · <a href="https://jorge-coffee.onrender.com/" target="_blank" rel="noopener">☕ Jorge Coffee</a>
+    </p>
+  </footer>
+
+  <a class="wa-float" id="waFloat" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+
+  <script src="app.js"></script>
+</body>
+</html>
