@@ -178,3 +178,10 @@ input:focus, select:focus { outline: 2px solid var(--acento); outline-offset: 1p
   width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
   background: var(--wa); color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.4);
 }
+
+/* Canal Instagram */
+.form-error.ok { color: #7be3a0; }
+.canal-ig .btn-wa, .canal-ig .wa-float { background: linear-gradient(45deg, #f58529, #dd2a7b 50%, #8134af); color: #fff; }
+.canal-ig .btn-wa svg, .canal-ig .wa-float svg { display: none; }
+.canal-ig .wa-float::after { content: ""; width: 26px; height: 26px; border: 3px solid #fff; border-radius: 8px;
+  background: radial-gradient(circle, transparent 5px, #fff 5.5px, #fff 7.5px, transparent 8px); }

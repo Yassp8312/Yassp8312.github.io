@@ -22,7 +22,9 @@ window.BARBERIA = {
   telefonoLink: "+13058051199",
   // Número de WhatsApp en formato internacional, sin "+" ni espacios
   whatsapp: "13058051199",
-  instagram: "", // ej: "yuribarbershop" (vacío = no se muestra)
+  instagram: "yuri_barbershop", // vacío = no se muestra
+  // Por dónde llegan las reservas: "whatsapp" o "instagram" (copia el mensaje y abre el chat)
+  canalReserva: "instagram",
 
   // Horario: 0 = domingo … 6 = sábado. [abre, cierra] en horas 24h. null = cerrado
   horario: {

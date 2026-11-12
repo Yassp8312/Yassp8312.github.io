@@ -5,19 +5,19 @@
   const UI = {
     es: {
       navServicios: "Servicios", navResenas: "Reseñas", navVisitanos: "Visítanos",
-      ctaReservar: "Reservar por WhatsApp", llamar: "Llamar",
+      ctaReservar: B.canalReserva === "instagram" ? "Reservar por Instagram" : "Reservar por WhatsApp", llamar: "Llamar",
       abierto: "Abierto ahora · cierra a las", cerrado: "Cerrado ahora", abreHoy: "Abre hoy a las", abreManana: "Abre",
       tServicios: "Servicios y precios", tGaleria: "Nuestros cortes", tReservar: "Reserva tu turno",
-      subReservar: "Elige y te abrimos WhatsApp con el mensaje listo. Te confirmamos por ahí.",
+      subReservar: B.canalReserva === "instagram" ? "Elige, copiamos tu mensaje y se abre nuestro chat de Instagram: solo pégalo y envía. Te confirmamos por ahí." : "Elige y te abrimos WhatsApp con el mensaje listo. Te confirmamos por ahí.",
       fServicio: "Servicio", fBarbero: "Barbero", fDia: "Día", fHora: "Hora", fNombre: "Tu nombre",
-      cualquiera: "El que esté libre", btnEnviar: "Enviar por WhatsApp",
+      cualquiera: "El que esté libre", btnEnviar: B.canalReserva === "instagram" ? "Copiar mensaje y abrir Instagram" : "Enviar por WhatsApp",
       tResenas: "Lo que dicen en Google", verResenas: "Ver las {n} reseñas en Google →",
       tVisitanos: "Visítanos", btnComoLlegar: "Cómo llegar", hechoPor: "Web por",
       resenasG: "reseñas en Google", preciosEj: "* Precios de ejemplo para esta vista previa.",
       demo: "Vista previa creada por Yassper Design — todo se puede ajustar a tu gusto.",
       fotoPh: "Aquí van tus fotos de Instagram",
       errNombre: "Pon tu nombre para la reserva.", errDia: "Elige un día.", errCerrado: "Ese día está cerrado, elige otro.",
-      errHora: "No quedan horas ese día, elige otro.",
+      errHora: "No quedan horas ese día, elige otro.", copiado: "✓ Mensaje copiado. Pégalo en el chat de Instagram que se abrió.",
       dias: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
       cerradoDia: "Cerrado", min: "min",
       msg: (d) => `Hola ${B.nombre}, quiero reservar:\n• Servicio: ${d.servicio}\n• Barbero: ${d.barbero}\n• Día: ${d.dia}\n• Hora: ${d.hora}\nNombre: ${d.nombre}`,
@@ -25,19 +25,19 @@
     },
     en: {
       navServicios: "Services", navResenas: "Reviews", navVisitanos: "Visit us",
-      ctaReservar: "Book on WhatsApp", llamar: "Call",
+      ctaReservar: B.canalReserva === "instagram" ? "Book on Instagram" : "Book on WhatsApp", llamar: "Call",
       abierto: "Open now · closes at", cerrado: "Closed now", abreHoy: "Opens today at", abreManana: "Opens",
       tServicios: "Services & prices", tGaleria: "Our cuts", tReservar: "Book your spot",
-      subReservar: "Pick your options and WhatsApp opens with the message ready. We confirm there.",
+      subReservar: B.canalReserva === "instagram" ? "Pick your options, we copy your message and open our Instagram chat: just paste and send. We confirm there." : "Pick your options and WhatsApp opens with the message ready. We confirm there.",
       fServicio: "Service", fBarbero: "Barber", fDia: "Day", fHora: "Time", fNombre: "Your name",
-      cualquiera: "Whoever is free", btnEnviar: "Send on WhatsApp",
+      cualquiera: "Whoever is free", btnEnviar: B.canalReserva === "instagram" ? "Copy message & open Instagram" : "Send on WhatsApp",
       tResenas: "What Google says", verResenas: "See all {n} Google reviews →",
       tVisitanos: "Visit us", btnComoLlegar: "Get directions", hechoPor: "Website by",
       resenasG: "Google reviews", preciosEj: "* Sample prices for this preview.",
       demo: "Preview built by Yassper Design — everything can be adjusted to your taste.",
       fotoPh: "Your Instagram photos go here",
       errNombre: "Add your name for the booking.", errDia: "Pick a day.", errCerrado: "We're closed that day, pick another.",
-      errHora: "No times left that day, pick another.",
+      errHora: "No times left that day, pick another.", copiado: "✓ Message copied. Paste it in the Instagram chat that opened.",
       dias: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       cerradoDia: "Closed", min: "min",
       msg: (d) => `Hi ${B.nombre}, I'd like to book:\n• Service: ${d.servicio}\n• Barber: ${d.barbero}\n• Day: ${d.dia}\n• Time: ${d.hora}\nName: ${d.nombre}`,
@@ -53,6 +53,8 @@
   const tx = (v) => (v && typeof v === "object" ? v[lang] ?? v.es : v);
   const t = (k) => UI[lang][k];
   const wa = (text) => `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(text)}`;
+  const ig = () => `https://ig.me/m/${B.instagram}`;
+  const esIG = B.canalReserva === "instagram" && B.instagram;
   const fmtHour = (h) => {
     const hh = Math.floor(h), mm = Math.round((h - hh) * 60);
     if (lang === "en") {
@@ -195,7 +197,8 @@
     if (map.src !== mapSrc) map.src = mapSrc;
 
     $("#footName").textContent = `${B.nombre} · ${B.direccion}`;
-    $("#waFloat").href = wa(t("msgGen"));
+    $("#waFloat").href = esIG ? ig() : wa(t("msgGen"));
+    document.body.classList.toggle("canal-ig", !!esIG);
   }
 
   // Eventos
@@ -216,7 +219,7 @@
     if (slots === null) return (err.textContent = t("errCerrado"));
     if (!slots.length) return (err.textContent = t("errHora"));
     if (!nombre) { err.textContent = t("errNombre"); $("#fNombre").focus(); return; }
-    err.textContent = "";
+    err.textContent = ""; err.classList.remove("ok");
 
     const s = B.servicios.find((x) => x.id === $("#fServicio").value);
     const [y, m, d] = dia.split("-").map(Number);
@@ -227,6 +230,14 @@
       barbero: $("#fBarbero").value || t("cualquiera"),
       dia: fecha, hora: $("#fHora").value, nombre,
     });
+    if (esIG) {
+      const go = () => { err.textContent = t("copiado"); err.classList.add("ok"); window.open(ig(), "_blank", "noopener"); };
+      (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(go, () => {
+        const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch (e) {} ta.remove(); go();
+      });
+      return;
+    }
     window.open(wa(text), "_blank", "noopener");
   });
 
