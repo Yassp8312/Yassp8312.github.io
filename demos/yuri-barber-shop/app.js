@@ -47,7 +47,7 @@
 
   let lang = "es";
   // Español por defecto (Hialeah); se recuerda si el visitante cambia a inglés
-  try { lang = localStorage.getItem("lang") || "es"; } catch (e) {}
+  try { lang = localStorage.getItem("barberia-lang") || "es"; } catch (e) {}
   if (!UI[lang]) lang = "es";
 
   const tx = (v) => (v && typeof v === "object" ? v[lang] ?? v.es : v);
@@ -201,7 +201,7 @@
   // Eventos
   $("#langBtn").addEventListener("click", () => {
     lang = lang === "es" ? "en" : "es";
-    try { localStorage.setItem("lang", lang); } catch (e) {}
+    try { localStorage.setItem("barberia-lang", lang); } catch (e) {}
     render();
   });
   $("#fDia").addEventListener("change", fillHours);
